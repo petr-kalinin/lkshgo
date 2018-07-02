@@ -2,6 +2,8 @@ React = require('react')
 
 import { geolocated } from 'react-geolocated';
 
+import BasicList from './BasicList'
+
 class Locator extends React.Component
     render: () ->
         if !this.props.isGeolocationAvailable
@@ -11,14 +13,7 @@ class Locator extends React.Component
         else if !this.props.coords
             <div>Getting the location data&hellip;</div>
         else
-            <table>
-                <tbody>
-                    <tr><td>coords</td><td>{this.props.coords.latitude} {this.props.coords.longitude}</td></tr>
-                    <tr><td>altitude</td><td>{this.props.coords.altitude}</td></tr>
-                    <tr><td>heading</td><td>{this.props.coords.heading}</td></tr>
-                    <tr><td>speed</td><td>{this.props.coords.speed}</td></tr>
-                </tbody>
-            </table>
+            <BasicList coords={@props.coords} />
 
 options =
     watchPosition: true
