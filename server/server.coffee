@@ -30,4 +30,5 @@ app.get '/', (req, res) ->
 
 port = (process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000)
 app.listen port, () ->
-  logger.info 'App listening on port ', port
+    console.log 'App listening on port ', port
+    logger.info 'App listening on port ', port
