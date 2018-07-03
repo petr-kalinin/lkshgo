@@ -13,7 +13,7 @@ class Locator extends React.Component
         else if !this.props.coords
             <div>Getting the location data&hellip;</div>
         else
-            <BasicList coords={@props.coords} />
+            <BasicList coords={[@props.coords.longitude, @props.coords.latitude]} />
 
 options =
     watchPosition: true
