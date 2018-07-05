@@ -12,8 +12,10 @@ class BasicList extends React.Component
             {@props.points.map((point) =>
                 <Point point={point}
                        coords={@props.coords}
+                       time={@props.time}
+                       markAsPassed={() => @props.markAsPassed(point.name)}
                        key={point.name}
-                       markAsPassed={() => @props.markAsPassed(point.name)}/>
+                       />
             )}
         </div>
 

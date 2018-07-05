@@ -12,7 +12,13 @@ export default class Point extends React.Component
         return r
 
     render: () ->
-        <div>
+        className = "passive"
+        if @props.point.active
+            className = "active"
+        if @props.point.passed
+            className = "passed"
+        <div className={className}>
+            {@props.time + " "}
             {@props.point.name + " "}
             {@distance() + " "}
             {@props.coords + " "}

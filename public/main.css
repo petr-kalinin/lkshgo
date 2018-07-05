@@ -1,0 +1,9 @@
+.passive {
+    color: gray;
+}
+.active {
+    font-weight: bold;
+}
+.passed {
+    color: green;
+}

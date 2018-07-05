@@ -2,7 +2,7 @@ React = require('react')
 
 import { geolocated } from 'react-geolocated';
 
-import BasicList from './BasicList'
+import TimeProvider from './TimeProvider'
 
 class Locator extends React.Component
     render: () ->
@@ -13,7 +13,7 @@ class Locator extends React.Component
         else if !this.props.coords
             <div>Getting the location data&hellip;</div>
         else
-            <BasicList coords={[@props.coords.longitude, @props.coords.latitude]} />
+            <TimeProvider coords={[@props.coords.longitude, @props.coords.latitude]} />
 
 options =
     watchPosition: true
