@@ -9,8 +9,8 @@ MAX_ACTIVE = 3
 
 defaultPoints = () ->
     result = []
-    for i in [44..47]
-        for j in [55..58]
+    for i in [44..44]
+        for j in [55..55]
             result.push
                 passed: false,
                 active: false,
