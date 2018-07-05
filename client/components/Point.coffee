@@ -13,5 +13,8 @@ export default class Point extends React.Component
         <div>
             {@props.point.name + " "}
             {@distance() + " "}
-            {@props.coords}
+            {@props.coords + " "}
+            {@props.point.coords + " "}
+            {" active=" + @props.point.active}
+            {" passed=" + @props.point.passed}
         </div>

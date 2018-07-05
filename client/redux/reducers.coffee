@@ -21,12 +21,12 @@ defaultPoints = [{
 }, {
     passed: false,
     active: true,
-    coords: [45, 56],
+    coords: [44, 56],
     name: "Текущий"
 }, {
     passed: false,
     active: false,
-    coords: [47, 57],
+    coords: [45, 55],
     name: "Будущий"
 }
 ]
