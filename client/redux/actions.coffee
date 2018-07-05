@@ -1,5 +1,6 @@
-export SET_UNPAID_WARNING_SHOWN = 'SET_UNPAID_WARNING_SHOWN'
+export MARK_AS_PASSED = 'MARK_AS_PASSED'
 
-export setUnpaidWarningShown = () ->
+export markAsPassed = (name) ->
     return
-        type: SET_UNPAID_WARNING_SHOWN
+        type: MARK_AS_PASSED
+        name: name

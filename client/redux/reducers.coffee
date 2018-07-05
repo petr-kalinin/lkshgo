@@ -1,20 +1,11 @@
 import { combineReducers } from 'redux'
 import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware'
+deepcopy = require("deepcopy")
 
-###
-import { SET_UNPAID_WARNING_SHOWN } from './actions'
-###
-
-###
-unpaidWarningShown = (state = false, action) ->
-    if action.type == SET_UNPAID_WARNING_SHOWN
-        return true
-    else
-        return state
-###
+import { MARK_AS_PASSED } from './actions'
 
 defaultPoints = [{
-    passed: true,
+    passed: false,
     active: false,
     coords: [44, 55],
     name: "Пройден"
@@ -33,6 +24,12 @@ defaultPoints = [{
 
 
 points = (state = defaultPoints, action) ->
+    state = deepcopy(state)
+    if action.type == MARK_AS_PASSED
+        for point in state
+            if point.name == action.name
+                point.passed = true
+
     return state
 
 export default rootReducer =
