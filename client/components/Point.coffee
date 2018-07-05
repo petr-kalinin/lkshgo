@@ -22,5 +22,5 @@ export default class Point extends React.Component
         </div>
 
     componentDidUpdate: () ->
-        if (!@props.point.passed and @distance() < THRESHOLD_DISTANCE)
+        if (@props.point.active and !@props.point.passed and @distance() < THRESHOLD_DISTANCE)
             @props.markAsPassed()
