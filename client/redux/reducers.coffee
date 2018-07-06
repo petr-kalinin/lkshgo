@@ -4,16 +4,16 @@ deepcopy = require("deepcopy")
 
 import { MARK_AS_PASSED } from './actions'
 
-MAX_ACTIVE = 3
-
+MAX_ACTIVE = 4
 
 defaultPoints = () ->
     result = []
-    for i in [44..44]
-        for j in [55..55]
+    for i in [44..48]
+        for j in [55..59]
             result.push
                 passed: false,
                 active: false,
+                phase: 21 * i + 33 * j
                 coords: [i, j],
                 name: "__" + i + "" + j + "__"
     return result

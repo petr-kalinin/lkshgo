@@ -7,6 +7,8 @@ import distance from '../lib/distance'
 
 THRESHOLD_DISTANCE = 10
 DISTANCE_TIME = 5
+LOOP_TIME = 3 * 10
+SILENT_LOOP_TIME = 1 * 10
 
 export default class Point extends React.Component
     constructor: (props) ->
@@ -28,12 +30,19 @@ export default class Point extends React.Component
         else
             return undefined
 
+    isSilent: () ->
+        phase = @props.point.phase + @props.time
+        return phase % LOOP_TIME < SILENT_LOOP_TIME
+
     render: () ->
-        className = "passive"
-        if @props.point.active
-            className = "active"
         if @props.point.passed
             className = "passed"
+        else if @isSilent()
+            className = "silent"
+        else if @props.point.active
+            className = "active"
+        else
+            className = "passive"
         <div className={className}>
             {@props.time + " "}
             {@props.point.name + " "}
