@@ -32,11 +32,18 @@ export default class Point extends React.Component
             time = start.time - end.time
             return -dist / time
         else
-            return undefined
+            return 0
 
     isSilent: () ->
         phase = @props.point.phase + @props.time
         return phase % LOOP_TIME < SILENT_LOOP_TIME
+
+    silenceTime: () ->
+        phase = (@props.point.phase + @props.time) % LOOP_TIME
+        if phase < SILENT_LOOP_TIME
+            return SILENT_LOOP_TIME - phase
+        else
+            return LOOP_TIME - phase
 
     render: () ->
         if @props.point.passed
@@ -48,7 +55,12 @@ export default class Point extends React.Component
         else # @props.point.active
             status = "active"
         image = images[@props.point.image]
-        <UILine name={@props.point.name} status={status} image={image} velocity={@velocity()} distance={@distance()} />
+        <UILine name={@props.point.name}
+                status={status}
+                image={image}
+                velocity={@velocity()}
+                distance={@distance()}
+                silenceTime={@silenceTime()}/>
 
     ###
     render: () ->
