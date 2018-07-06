@@ -36,6 +36,8 @@ export default class UILine extends React.Component
         velocity = @velocity(velocity)
         divclass = "uiline"
 
+        timename = "Время активности: "
+
         if status == "passed"
             signal = "passed"
             velocity = "silent"
@@ -43,10 +45,15 @@ export default class UILine extends React.Component
             signal = "silent"
             velocity = "silent"
             divclass += " silent"
+            timename = "Время ожидания: "
 
-        <div className="uiline">
+        <div className={divclass}>
             <img className="photo" src={"data:image/png;base64, " + image}/>
-            <div className="name">{name}<div className="silenceTime">{silenceTime}</div></div>
+            <div className="name">{name}
+                {if status != "passed"
+                    <div className="silenceTime">{timename}{silenceTime}</div>
+                }
+            </div>
             <img className="velocity" src={"data:image/png;base64, " + images[velocity]}/>
             <img className="signal" src={"data:image/png;base64, " + images[signal]}/>
         </div>
