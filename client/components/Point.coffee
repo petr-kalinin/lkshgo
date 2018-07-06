@@ -18,6 +18,16 @@ export default class Point extends React.Component
         r = distance(@props.point.coords[0], @props.point.coords[1], @props.coords[0], @props.coords[1])
         return r
 
+    velocity: () ->
+        if @state.distances.length > DISTANCE_TIME / 2
+            start = @state.distances[0]
+            end = @state.distances[@state.distances.length - 1]
+            dist = start.distance - end.distance
+            time = start.time - end.time
+            return -dist / time
+        else
+            return undefined
+
     render: () ->
         className = "passive"
         if @props.point.active
@@ -32,7 +42,8 @@ export default class Point extends React.Component
             {@props.point.coords + " "}
             {" active=" + @props.point.active}
             {" passed=" + @props.point.passed}
-            {@state.distances.map((s) -> "#{s.time}:#{s.distance} ")}
+            {" velocity=" + @velocity()}
+            {" distances=" + @state.distances.map((s) -> "#{s.time}:#{s.distance} ")}
         </div>
 
     componentDidUpdate: () ->
