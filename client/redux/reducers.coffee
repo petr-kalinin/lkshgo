@@ -16,6 +16,7 @@ defaultPoints = () ->
                 phase: 21 * i + 33 * j
                 coords: [i, j],
                 name: "__" + i + "" + j + "__"
+                image: if i % 2 == 0 then "red" else "blue"
     return result
 
 

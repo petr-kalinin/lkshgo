@@ -5,6 +5,10 @@ import { connect } from 'react-redux'
 
 import distance from '../lib/distance'
 
+import images from '../images/images'
+
+import UILine from './UILine'
+
 THRESHOLD_DISTANCE = 10
 DISTANCE_TIME = 5
 LOOP_TIME = 3 * 10
@@ -36,6 +40,19 @@ export default class Point extends React.Component
 
     render: () ->
         if @props.point.passed
+            status = "passed"
+        else if !@props.point.active
+            status = "passive"
+        else if @isSilent()
+            status = "silent"
+        else # @props.point.active
+            status = "active"
+        image = images[@props.point.image]
+        <UILine name={@props.point.name} status={status} image={image} velocity={@velocity()} distance={@distance()} />
+
+    ###
+    render: () ->
+        if @props.point.passed
             className = "passed"
         else if @isSilent()
             className = "silent"
@@ -54,9 +71,10 @@ export default class Point extends React.Component
             {" velocity=" + @velocity()}
             {" distances=" + @state.distances.map((s) -> "#{s.time}:#{s.distance} ")}
         </div>
+    ###
 
     componentDidUpdate: () ->
-        if (@props.point.active and !@props.point.passed and @distance() < THRESHOLD_DISTANCE)
+        if (!@isSilent() and @props.point.active and !@props.point.passed and @distance() < THRESHOLD_DISTANCE)
             @props.markAsPassed()
         if (@props.time and @props.time > @state.distances[@state.distances.length - 1].time)
             newDistances = (p for p in @state.distances when p.time > @props.time - DISTANCE_TIME)
