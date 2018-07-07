@@ -35,6 +35,9 @@ _defaultPoints = () ->
     return result
 
 defaultPoints = () ->
+    local = window.localStorage.getItem("points")
+    if local
+        return JSON.parse(local)
     all_preps = preps_list()
     result = []
     take = (0 for point in track)
@@ -74,6 +77,7 @@ points = (state = defaultPoints(), action) ->
             point.active = (nNotPassed < MAX_ACTIVE)
             nNotPassed += 1
 
+    window.localStorage.setItem("points", JSON.stringify(state))
     return state
 
 help = (state = false, action) ->
