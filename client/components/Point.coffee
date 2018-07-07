@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import distance from '../lib/distance'
 
-import images from '../images/images'
+import images from '../data/images'
 
 import UILine from './UILine'
 

@@ -1,6 +1,6 @@
 React = require('react')
 
-import images from '../images/images'
+import images from '../data/images'
 
 export default class UILine extends React.Component
 
@@ -49,7 +49,8 @@ export default class UILine extends React.Component
 
         <div className={divclass}>
             <img className="photo" src={"data:image/png;base64, " + image}/>
-            <div className="name">{name}
+            <div className="namepart">
+                <div className="name">{name}</div>
                 {if status != "passed"
                     <div className="silenceTime">{timename}{silenceTime}</div>
                 }
