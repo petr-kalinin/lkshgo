@@ -1,3 +1,19 @@
+.topbar {
+    height: 32px;
+}
+.help {
+}
+.help_text {
+    padding: 5px;
+}
+
+.button {
+    border: 1px solid black;
+    border-radius: 3px;
+    margin: 5px;
+    text-align: center;
+}
+
 .silent {
     color: gray;
 }
@@ -18,7 +34,9 @@
 }
 
 .name {
+    max-height: 48px;
     font-size: 150%;
+    overflow: hidden;
 }
 .distance {
     width: 64px;

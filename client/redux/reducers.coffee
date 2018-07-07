@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware'
 deepcopy = require("deepcopy")
 
-import { MARK_AS_PASSED } from './actions'
+import { MARK_AS_PASSED, HELP } from './actions'
 
 import track from '../data/track'
 import preps from '../data/preps'
@@ -76,7 +76,14 @@ points = (state = defaultPoints(), action) ->
 
     return state
 
+help = (state = false, action) ->
+    if action.type == HELP
+        action.value
+    else
+        state
+
 export default rootReducer =
     combineReducers {
-        points
+        points,
+        help
     }
