@@ -11,8 +11,8 @@ import UILine from './UILine'
 
 THRESHOLD_DISTANCE = 10
 DISTANCE_TIME = 5
-LOOP_TIME = 3 * 10
-SILENT_LOOP_TIME = 1 * 10
+LOOP_TIME = 3 * 30
+SILENT_LOOP_TIME = 1 * 30
 
 export default class Point extends React.Component
     constructor: (props) ->
