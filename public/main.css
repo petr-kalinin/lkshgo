@@ -37,6 +37,7 @@
     max-height: 48px;
     font-size: 150%;
     overflow: hidden;
+    white-space:nowrap;
 }
 .distance {
     width: 64px;

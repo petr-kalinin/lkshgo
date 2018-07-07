@@ -39,7 +39,7 @@ export default class UILine extends React.Component
         velocity = @velocity(velocity)
         divclass = "uiline"
 
-        timename = "Время активности: "
+        timename = "Активен: "
 
         if status == "passed"
             signal = "passed"
@@ -48,7 +48,7 @@ export default class UILine extends React.Component
             signal = "silent"
             velocity = "silent"
             divclass += " silent"
-            timename = "Время ожидания: "
+            timename = "Ожидание: "
 
         if image of images
             photo = "data:image/png;base64, " + images[image]
