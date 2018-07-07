@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware'
 deepcopy = require("deepcopy")
 
-import { MARK_AS_PASSED, HELP } from './actions'
+import { MARK_AS_PASSED, HELP, RESET } from './actions'
 
 import track from '../data/track'
 import preps from '../data/preps'
@@ -64,6 +64,10 @@ defaultPoints = () ->
 
 points = (state = defaultPoints(), action) ->
     state = deepcopy(state)
+    if action.type == RESET
+        window.localStorage.removeItem("points")
+        state = defaultPoints()
+
     if action.type == MARK_AS_PASSED
         for point in state
             if point.name == action.name

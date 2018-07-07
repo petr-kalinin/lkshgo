@@ -1,5 +1,4 @@
 .topbar {
-    height: 32px;
 }
 .help {
 }
@@ -10,8 +9,10 @@
 .button {
     border: 1px solid black;
     border-radius: 3px;
+    padding: 5px;
     margin: 5px;
     text-align: center;
+    display: inline-block;
 }
 
 .silent {

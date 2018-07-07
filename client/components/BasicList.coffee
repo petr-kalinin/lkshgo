@@ -13,6 +13,7 @@ class BasicList extends React.Component
             return <Help close={@props.closeHelp}/>
         <div>
             <div className="topbar">
+                <div className="button" onClick={@props.reset}>reset</div>
                 <div className="help button" onClick={@props.showHelp}>?</div>
             </div>
             {@props.points.map((point) =>
@@ -33,6 +34,7 @@ mapStateToProps = (state) ->
 mapDispatchToProps = (dispatch) ->
     return
         markAsPassed: (name) -> dispatch(actions.markAsPassed(name))
+        reset: (name) -> dispatch(actions.reset())
         showHelp: (name) -> dispatch(actions.help(true))
         closeHelp: (name) -> dispatch(actions.help(false))
 
