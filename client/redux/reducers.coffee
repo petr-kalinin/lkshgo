@@ -5,12 +5,23 @@ deepcopy = require("deepcopy")
 import { MARK_AS_PASSED } from './actions'
 
 import track from '../data/track'
+import preps from '../data/preps'
+import photos from '../data/photos'
 
 MAX_ACTIVE = 4
 
-NUM_POINTS = 20
+preps_list = () ->
+    result = []
+    for prep of preps
+        result.push(prep)
+        console.assert(prep of photos, prep)
+    console.log result.length
+    for i in [result.length-1...0]
+        j = Math.floor(Math.random() * i)
+        [result[i], result[j]] = [result[j], result[i]]
+    return result
 
-defaultPoints = () ->
+_defaultPoints = () ->
     result = []
     for i in [44..48]
         for j in [55..59]
@@ -23,24 +34,28 @@ defaultPoints = () ->
                 image: if i % 2 == 0 then "red" else "blue"
     return result
 
-_defaultPoints = () ->
+defaultPoints = () ->
+    all_preps = preps_list()
     result = []
     take = (0 for point in track)
-    for i in [0..NUM_POINTS]
+    for i in [0...all_preps.length]
         while true
             idx = Math.floor(Math.random() * take.length)
             if take[idx] == 0
                 take[idx] = 1
                 break
-    for i in [0..take.length]
+    prep_i = 0
+    for i in [0...take.length]
         if take[i]
             result.push
                 passed: false,
                 active: false,
                 phase: Math.floor(Math.random() * 1000)
                 coords: track[i],
-                name: "__" + i
-                image: if i % 2 == 0 then "red" else "blue"
+                name: preps[all_preps[prep_i]]
+                image: all_preps[prep_i]
+            prep_i++
+    console.assert(prep_i == all_preps.length)
     return result
 
 

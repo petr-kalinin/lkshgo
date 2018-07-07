@@ -54,7 +54,7 @@ export default class Point extends React.Component
             status = "silent"
         else # @props.point.active
             status = "active"
-        image = images[@props.point.image]
+        image = @props.point.image
         <UILine name={@props.point.name}
                 status={status}
                 image={image}
