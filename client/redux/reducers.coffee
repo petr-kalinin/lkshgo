@@ -12,6 +12,19 @@ NUM_POINTS = 20
 
 defaultPoints = () ->
     result = []
+    for i in [44..48]
+        for j in [55..59]
+            result.push
+                passed: false,
+                active: false,
+                phase: 21 * i + 33 * j
+                coords: [i, j],
+                name: "__" + i + "" + j + "__"
+                image: if i % 2 == 0 then "red" else "blue"
+    return result
+
+_defaultPoints = () ->
+    result = []
     take = (0 for point in track)
     for i in [0..NUM_POINTS]
         while true

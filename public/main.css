@@ -20,6 +20,11 @@
 .name {
     font-size: 150%;
 }
+.distance {
+    width: 64px;
+    font-size: 300%;
+    text-align: center;
+}
 
 /*
 .passive {

@@ -5,7 +5,9 @@ import images from '../data/images'
 export default class UILine extends React.Component
 
     signal: (distance) ->
-        if distance < 25
+        if distance < 15
+            undefined
+        else if distance < 30
             "signal4"
         else if distance < 50
             "signal3"
@@ -56,5 +58,9 @@ export default class UILine extends React.Component
                 }
             </div>
             <img className="velocity" src={"data:image/png;base64, " + images[velocity]}/>
-            <img className="signal" src={"data:image/png;base64, " + images[signal]}/>
+            {if signal
+                <img className="signal" src={"data:image/png;base64, " + images[signal]}/>
+            else
+                <div className="distance">{distance.toFixed(0)}</div>
+            }
         </div>
