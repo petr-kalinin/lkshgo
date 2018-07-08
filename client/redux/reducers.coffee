@@ -21,20 +21,31 @@ preps_list = () ->
         [result[i], result[j]] = [result[j], result[i]]
     return result
 
-_defaultPoints = () ->
+defaultPoints = () ->
     result = []
     for i in [44..48]
         for j in [55..59]
             result.push
                 passed: false,
                 active: false,
+                secret: false,
+                phase: 21 * i + 33 * j
+                coords: [i, j],
+                name: "__" + i + "" + j + "__"
+                image: if i % 2 == 0 then "red" else "blue"
+    for i in [50..55]
+        for j in [55..55]
+            result.push
+                passed: false,
+                active: false,
+                secret: true,
                 phase: 21 * i + 33 * j
                 coords: [i, j],
                 name: "__" + i + "" + j + "__"
                 image: if i % 2 == 0 then "red" else "blue"
     return result
 
-defaultPoints = () ->
+_defaultPoints = () ->
     local = window.localStorage.getItem("points")
     if local
         return JSON.parse(local)
@@ -78,7 +89,7 @@ points = (state = defaultPoints(), action) ->
         if point.passed
             point.active = false
         else
-            point.active = (nNotPassed < MAX_ACTIVE)
+            point.active = (nNotPassed < MAX_ACTIVE) or point.secret
             nNotPassed += 1
 
     window.localStorage.setItem("points", JSON.stringify(state))

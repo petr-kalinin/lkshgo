@@ -11,8 +11,8 @@ import UILine from './UILine'
 
 THRESHOLD_DISTANCE = 5
 DISTANCE_TIME = 5
-LOOP_TIME = 3 * 60
-SILENT_LOOP_TIME = 1 * 60
+LOOP_TIME = 3 * 10
+SILENT_LOOP_TIME = 1 * 10
 
 export default class Point extends React.Component
     constructor: (props) ->
@@ -60,6 +60,7 @@ export default class Point extends React.Component
                 image={image}
                 velocity={@velocity()}
                 distance={@distance()}
+                secret={@props.point.secret}
                 silenceTime={@silenceTime()}/>
 
     ###

@@ -3,6 +3,8 @@ React = require('react')
 import images from '../data/images'
 import photos from '../data/photos'
 
+SECRET_DISTANCE = 40
+
 export default class UILine extends React.Component
 
     signal: (distance) ->
@@ -31,7 +33,7 @@ export default class UILine extends React.Component
             "velocity_2"
 
     render: () ->
-        {status, distance, velocity, image, name, silenceTime} = @props
+        {status, distance, velocity, image, name, silenceTime, secret} = @props
         if status == "passive"
             return null
 
@@ -39,7 +41,7 @@ export default class UILine extends React.Component
         velocity = @velocity(velocity)
         divclass = "uiline"
 
-        timename = "Активен: "
+        timestring = "Активен: " + silenceTime
 
         if status == "passed"
             signal = "passed"
@@ -48,7 +50,13 @@ export default class UILine extends React.Component
             signal = "silent"
             velocity = "silent"
             divclass += " silent"
-            timename = "Ожидание: "
+            timestring = "Ожидание: " + silenceTime
+        if secret and distance > SECRET_DISTANCE
+            signal = "silent"
+            velocity = "silent"
+            divclass += " silent"
+            name = "Секретный преподаватель"
+            timestring = ""
 
         if image of images
             photo = "data:image/png;base64, " + images[image]
@@ -60,7 +68,7 @@ export default class UILine extends React.Component
             <div className="namepart">
                 <div className="name">{name}</div>
                 {if status != "passed"
-                    <div className="silenceTime">{timename}{silenceTime}</div>
+                    <div className="silenceTime">{timestring}</div>
                 }
             </div>
             <img className="velocity" src={"data:image/png;base64, " + images[velocity]}/>
