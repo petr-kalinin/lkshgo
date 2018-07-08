@@ -3,9 +3,14 @@
     align-items: center;
 }
 .total {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 200%;
+}
+.timeSpent {
     flex: 1;
     padding-left: 10px;
-    font-size: 300%;
+    font-size: 200%;
 }
 .help {
 }

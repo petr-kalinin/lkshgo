@@ -6,6 +6,7 @@ import * as actions from '../redux/actions'
 
 import Point from './Point'
 import Help from './Help'
+import currentTime from '../lib/currentTime'
 
 class BasicList extends React.Component
     count: () ->
@@ -15,12 +16,21 @@ class BasicList extends React.Component
                 result++
         return result
 
+    timeSpent: () ->
+        t = Math.floor((currentTime() - @props.points[0].created) / 60)
+        h = Math.floor(t/60)
+        m = t % 60
+        m1 = Math.floor(m/10)
+        m2 = m % 10
+        h + ":" + m1 + m2
+
     render: () ->
         if @props.help
             return <Help close={@props.closeHelp}/>
         <div>
             <div className="topbar">
                 <div className="total">{@count() + "/" + @props.points.length}</div>
+                <div className="timeSpent">{@timeSpent()}</div>
                 <div className="button" onClick={@props.reset}>reset</div>
                 {@props.canUndo && <div className="button" onClick={@props.undoReset}>undo reset</div>}
                 {@props.canRedo && <div className="button" onClick={@props.redoReset}>redo reset</div>}

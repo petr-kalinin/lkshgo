@@ -8,6 +8,7 @@ import track, {secretPoints} from '../data/track'
 import preps, {secretPreps} from '../data/preps'
 import photos from '../data/photos'
 import distance from '../lib/distance'
+import currentTime from '../lib/currentTime'
 
 MAX_ACTIVE = 4
 SECRET_PREP_OFFSET = 40
@@ -34,6 +35,7 @@ _defaultPoints = () ->
                 coords: [i, j],
                 name: "__" + i + "" + j + "__"
                 image: if i % 2 == 0 then "red" else "blue"
+                created: currentTime()
     for i in [50..55]
         for j in [55..55]
             result.push
@@ -44,6 +46,7 @@ _defaultPoints = () ->
                 coords: [i, j],
                 name: "__" + i + "" + j + "__"
                 image: if i % 2 == 0 then "red" else "blue"
+                created: currentTime()
     return result
 
 makeSecretPreps = () ->
@@ -66,6 +69,7 @@ makeSecretPreps = () ->
             coords: points[idx],
             name: secretPreps[prep]
             image: prep
+            created: currentTime()
     return result
 
 defaultPoints = () ->
@@ -89,6 +93,7 @@ defaultPoints = () ->
                 coords: track[i],
                 name: preps[all_preps[prep_i]]
                 image: all_preps[prep_i]
+                created: currentTime()
             prep_i++
     console.assert(prep_i == all_preps.length)
     result = result.concat(makeSecretPreps())
