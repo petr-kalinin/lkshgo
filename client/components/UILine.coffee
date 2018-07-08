@@ -57,6 +57,7 @@ export default class UILine extends React.Component
             divclass += " silent"
             name = "Секретный преподаватель"
             timestring = ""
+            image = "silent"
 
         if image of images
             photo = "data:image/png;base64, " + images[image]

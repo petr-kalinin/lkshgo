@@ -1,3 +1,9 @@
+export secretPreps =
+    gurovic: "Владимир Гуровиц",
+    vam: "Виктор Матюхин",
+    mingalev: "Олег Мингалев",
+    garkavy: "Андрей Гаркавый"
+    
 export default preps =
     sablina: "Маргарита Саблина",
     kalinin: "Петр Калинин",

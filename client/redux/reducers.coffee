@@ -4,24 +4,25 @@ deepcopy = require("deepcopy")
 
 import { MARK_AS_PASSED, HELP, RESET } from './actions'
 
-import track from '../data/track'
-import preps from '../data/preps'
+import track, {secretPoints} from '../data/track'
+import preps, {secretPreps} from '../data/preps'
 import photos from '../data/photos'
+import distance from '../lib/distance'
 
 MAX_ACTIVE = 4
+SECRET_PREP_OFFSET = 40
 
 preps_list = () ->
     result = []
     for prep of preps
         result.push(prep)
         console.assert(prep of photos, prep)
-    console.log result.length
     for i in [result.length-1...0]
         j = Math.floor(Math.random() * i)
         [result[i], result[j]] = [result[j], result[i]]
     return result
 
-defaultPoints = () ->
+_defaultPoints = () ->
     result = []
     for i in [44..48]
         for j in [55..59]
@@ -45,7 +46,29 @@ defaultPoints = () ->
                 image: if i % 2 == 0 then "red" else "blue"
     return result
 
-_defaultPoints = () ->
+makeSecretPreps = () ->
+    result = []
+    for prep of secretPreps
+        console.assert(prep of photos, "photos " + prep)
+        console.assert(prep of secretPoints, "secretPoints " + prep)
+        center = secretPoints[prep]
+        points = []
+        for point in track
+            if distance(center[0], center[1], point[0], point[1]) < SECRET_PREP_OFFSET
+                points.push(point)
+        console.assert(points.length > 0)
+        idx = Math.floor(Math.random() * points.length)
+        result.push
+            passed: false,
+            active: false,
+            secret: true,
+            phase: Math.floor(Math.random() * 1000)
+            coords: points[idx],
+            name: secretPreps[prep]
+            image: prep
+    return result
+
+defaultPoints = () ->
     local = window.localStorage.getItem("points")
     if local
         return JSON.parse(local)
@@ -64,12 +87,14 @@ _defaultPoints = () ->
             result.push
                 passed: false,
                 active: false,
+                secret: false,
                 phase: Math.floor(Math.random() * 1000)
                 coords: track[i],
                 name: preps[all_preps[prep_i]]
                 image: all_preps[prep_i]
             prep_i++
     console.assert(prep_i == all_preps.length)
+    result = result.concat(makeSecretPreps())
     return result
 
 
