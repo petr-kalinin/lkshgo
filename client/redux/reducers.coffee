@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware'
 deepcopy = require("deepcopy")
 
-import { MARK_AS_PASSED, HELP, RESET } from './actions'
+import { MARK_AS_PASSED, HELP, UNDO_RESET, REDO_RESET, RESET } from './actions'
 
 import track, {secretPoints} from '../data/track'
 import preps, {secretPreps} from '../data/preps'
@@ -69,9 +69,6 @@ makeSecretPreps = () ->
     return result
 
 defaultPoints = () ->
-    local = window.localStorage.getItem("points")
-    if local
-        return JSON.parse(local)
     all_preps = preps_list()
     result = []
     take = (0 for point in track)
@@ -97,20 +94,33 @@ defaultPoints = () ->
     result = result.concat(makeSecretPreps())
     return result
 
+initialState = () ->
+    local = window.localStorage.getItem("points")
+    if local
+        local = JSON.parse(local)
+        if local.prev?.length >= 0
+            return local
+    return {current: defaultPoints(), prev: [], next: []}
 
-points = (state = defaultPoints(), action) ->
+points = (state = initialState(), action) ->
     state = deepcopy(state)
     if action.type == RESET
-        window.localStorage.removeItem("points")
-        state = defaultPoints()
+        state.prev.push(state.current)
+        state.current = defaultPoints()
+    else if action.type == UNDO_RESET and state.prev.length > 0
+        state.next.push(state.current)
+        state.current = state.prev.pop()
+    else if action.type == REDO_RESET and state.next.length > 0
+        state.prev.push(state.current)
+        state.current = state.next.pop()
 
     if action.type == MARK_AS_PASSED
-        for point in state
+        for point in state.current
             if point.name == action.name
                 point.passed = true
 
     nNotPassed = 0
-    for point in state
+    for point in state.current
         if point.passed
             point.active = false
         else
