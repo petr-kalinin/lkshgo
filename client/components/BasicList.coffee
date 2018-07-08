@@ -8,11 +8,19 @@ import Point from './Point'
 import Help from './Help'
 
 class BasicList extends React.Component
+    count: () ->
+        result = 0
+        for point in @props.points
+            if point.passed
+                result++
+        return result
+
     render: () ->
         if @props.help
             return <Help close={@props.closeHelp}/>
         <div>
             <div className="topbar">
+                <div className="total">{@count() + "/" + @props.points.length}</div>
                 <div className="button" onClick={@props.reset}>reset</div>
                 <div className="help button" onClick={@props.showHelp}>?</div>
             </div>
